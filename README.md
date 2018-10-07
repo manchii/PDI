@@ -1,0 +1,2 @@
+# PDI
+Curso de imagenes
