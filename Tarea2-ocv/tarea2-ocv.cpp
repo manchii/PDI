@@ -57,18 +57,22 @@ while (ok) {
     case 81:
       brightness=std::min(1.0f,brightness+0.1f);
       stream1.set(CV_CAP_PROP_BRIGHTNESS,brightness);
+      std::cout<<"brightness: "<<brightness<<std::endl;
     break;
     case 83:
       brightness=std::max(0.0f,brightness-0.1f);
       stream1.set(CV_CAP_PROP_BRIGHTNESS,brightness);
+      std::cout<<"brightness: "<<brightness<<std::endl;     
     break;
     case 82:
-    saturation=std::min(1.0f,saturation+0.1f);
-    stream1.set(CV_CAP_PROP_SATURATION,saturation);
+      saturation=std::min(1.0f,saturation+0.1f);
+      stream1.set(CV_CAP_PROP_SATURATION,saturation);
+      std::cout<<"saturation: "<<saturation<<std::endl;
     break;
     case 84:
-    saturation=std::max(0.0f,saturation-0.1f);
-    stream1.set(CV_CAP_PROP_SATURATION,saturation);
+      saturation=std::max(0.0f,saturation-0.1f);
+      stream1.set(CV_CAP_PROP_SATURATION,saturation);
+      std::cout<<"saturation: "<<saturation<<std::endl;
     break;
     case 'x':
       ok=false;
