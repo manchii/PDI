@@ -1,0 +1,5 @@
+cmake_minimum_required(VERSION 2.8)
+project( tarea3-ocv )
+find_package( OpenCV REQUIRED )
+add_executable( tarea3-ocv tarea3-ocv.cpp )
+target_link_libraries( tarea3-ocv ${OpenCV_LIBS} )
