@@ -29,3 +29,16 @@ En las teclas **w**, **a**, **s** y **d**, se tienen asignados casos de puntos u
 El programa decide detener el _plot_ en los límites del cuadro, pero continua el algoritmo continua normalmente.
 
 ![opencv-lines](https://github.com/manchii/PDI/blob/master/Tarea3-ocv/tarea3-ocv.gif)
+
+## Tarea4 / Mapeo bilineal con LTILIB-2
+En este programa, él realiza la transformación de imágenes utilizando el método de mapeo bilineal. Este método se basa en el uso del conjunto de los números complejos. El procedimiento para la transformación sigue los pasos siguientes:
+
+1. Los cuatro píxeles (0,0), (0,cols), (rows-1,0) y (rows-1,cols-1) son mapeados en las coordenadas de la imagen resultante. Esto permite estimar un _offset_ y la resolución de la imagen final para rellenarla.
+
+2. Se realiza un _allocate_ de memoria para la imagen destino de acuerdo a la resolución estimada.
+
+3. Se recorre cada píxel de la imagen destino y se le encuentra su píxel equivalente utilizando el mapeo inverso e interpolación bilineal.
+
+
+![wesanderson](https://github.com/manchii/PDI/blob/master/Tarea4/wesanderson.jpg)
+![wesandersonmapped](https://github.com/manchii/PDI/blob/master/Tarea4/wesanderson_mapped.png)
