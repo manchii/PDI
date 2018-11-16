@@ -42,3 +42,8 @@ En este programa, él realiza la transformación de imágenes utilizando el mét
 
 ![wesanderson](https://github.com/manchii/PDI/blob/master/Tarea4/wesanderson.jpg)
 ![wesandersonmapped](https://github.com/manchii/PDI/blob/master/Tarea4/wesanderson_mapped.png)
+
+## Tarea5 / Filtros en OpenCV
+En este programa, se realizó una comparación directa en el tiempo de ejecución de un filtro gaussiano utilizando 3 métodos de la biblioteca de openCV (filter2d,sepFilter y dft). Los resultados obtenidos se muestran en la figura debajo. El tiempo de ejecución se comparo en función del tamaño del kernel del filtro. Bajo la implementación naive de la convolución del filtro2d, se espera un orden 2 de crecimiento y de orden lineal para el del filtro separable. Sin embargo, la bilioteca implementa el filtro2d por medio de optimizaciones donde la versión naive se observa para un tamaño del kernel menor a 8 y una en frecuencia después de 8. Para el filtro separable, este crece linealmente y es hasta para un filtro de tamaño 29, que este método resulta superado por el filtro realizado en el dominio de la frecuencia.
+
+![exectime](https://github.com/manchii/PDI/blob/master/Tarea5/execution_time.png)
