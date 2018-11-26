@@ -5,4 +5,6 @@
 
 Los filtros basados en los operadores de mínimos o máximos están directamente asociados con los operadores morfológicos de dilatación y erosión. La definición matemática  del filtro es
 
-![]()
+![](https://github.com/manchii/PDI/blob/master/Proyecto/imgs/filtereq.png)
+
+Donde _S(x,y)_ es la imagen fuente y _D(x,y)_ la imagen destino. La regla de la operación asigna para cada pixel _(x,y)_ de la imagen _D_ el píxel mayor alrededor de la localidad del píxel _(x,y)_ de la imagen fuente _S_ de acuerdo a una máscara T(x,y).
