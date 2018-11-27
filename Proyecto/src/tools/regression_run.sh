@@ -1,0 +1,9 @@
+#!/bin/bash
+
+
+echo "Starting regression run"
+echo "ltilib::maximumFilter running"
+make -C ../seq/
+../seq/seq ../seq/cat-test.jpg > lti-perf.csv
+echo "plotting"
+./plot_time_comparation.py lti-perf.csv
