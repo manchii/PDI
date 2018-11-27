@@ -71,7 +71,7 @@ typedef lti::viewer2D viewer_type;
  using std::endl;
 
 
-//#include "project.hpp"
+#include "trivial.hpp"
 
 /*
  * Help
@@ -164,7 +164,7 @@ int main(int argc, char* argv[]) {
   lti::maximumFilter<lti::ubyte> mfilt(3);
 
   double acc_samp=0;
-  std::cout << "wsize , tiempo(ms)" << std::endl;
+  std::cout << "wsize , ltilib::maximumFilter(ms) , trivial-max-Filter(ms)" << std::endl;
   for (int wsize =1; wsize<25; wsize+=2){
     mfilt.setSquareMaskWindow(wsize);
     mfilt.updateParameters();
@@ -176,8 +176,18 @@ int main(int argc, char* argv[]) {
       elapsed_seconds = end - start;
       acc_samp+=elapsed_seconds.count();
     }
-    std::cout << wsize << " , " << acc_samp << std::endl;
+    std::cout << wsize << " , " << acc_samp/100;
+    acc_samp=0;
+    for(int i=0; i<100; i++){
+      start = std::chrono::system_clock::now();
+      maxFilterTrivial(res,img,wsize);
+      end = std::chrono::system_clock::now();
+      elapsed_seconds = end - start;
+      acc_samp+=elapsed_seconds.count();
+    }
+    std::cout << " , " << acc_samp/100 << std::endl;
   }
+
 
 
 
