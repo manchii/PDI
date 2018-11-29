@@ -10,7 +10,7 @@ features = df.columns
 
 for ft in features:
     if(ft!="wsize "):
-        plt.plot(df[features[0]].values,df[ft].values,label=ft,marker='o')
+        plt.plot(df[features[0]].values,df[ft].values,label=ft,marker='o',markersize=4)
 
 plt.xlabel("k size filter")
 plt.ylabel("time (ms)")
