@@ -156,17 +156,7 @@ int main(int argc, char* argv[]) {
   double acc_samp=0;
   std::cout << " , dokladal(ms)" << std::endl;
   for (int wsize =1; wsize<23; wsize+=2){
-    // mfilt.setSquareMaskWindow(wsize);
-    // mfilt.updateParameters();
-    // acc_samp=0;
-    // for(int i=0; i<100; i++){
-    //   start = std::chrono::system_clock::now();
-    //   mfilt.apply(img,res);
-    //   end = std::chrono::system_clock::now();
-    //   elapsed_seconds = end - start;
-    //   acc_samp+=elapsed_seconds.count();
-    // }
-    // std::cout << wsize << " , " << acc_samp/100;
+
     acc_samp=0;
     for(int i=0; i<1; i++){
       start = std::chrono::system_clock::now();
@@ -190,7 +180,6 @@ int main(int argc, char* argv[]) {
 
     if(view.waitButtonReleased(action, pos))
     {
-//        std::cout << "click" << std::endl;
         showTransformed = !showTransformed;
     }
   } while(action.action != lti::viewer2D::Closed);
