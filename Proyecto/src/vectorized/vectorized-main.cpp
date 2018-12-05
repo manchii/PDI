@@ -62,7 +62,7 @@ typedef lti::viewer2D viewer_type;
 
 
 
-#include "dokladal.hpp"
+#include "vectorized.hpp"
 
 /*
  * Help
@@ -154,13 +154,13 @@ int main(int argc, char* argv[]) {
 
 
   double acc_samp=0;
-  std::cout << " , dokladal(ms)" << std::endl;
+  std::cout << " , sep-filter(ms)" << std::endl;
   for (int wsize =1; wsize<25; wsize+=2){
 
     acc_samp=0;
     for(int i=0; i<100; i++){
       start = std::chrono::system_clock::now();
-      dokladal(res,img,wsize);
+      max_sep_filter(res,img,wsize);
       end = std::chrono::system_clock::now();
       elapsed_seconds = end - start;
       acc_samp+=elapsed_seconds.count();
