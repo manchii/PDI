@@ -155,10 +155,11 @@ int main(int argc, char* argv[]) {
 
   double acc_samp=0;
   std::cout << " , sep-filter(ms)" << std::endl;
-  for (int wsize =1; wsize<25; wsize+=2){
+  //for (int wsize =1; wsize<25; wsize+=2){ //final
+  for (int wsize =5; wsize<7; wsize+=2){//debug
 
     acc_samp=0;
-    for(int i=0; i<100; i++){
+    for(int i=0; i<100; i++){ //final
       start = std::chrono::system_clock::now();
       max_sep_filter(res,img,wsize);
       end = std::chrono::system_clock::now();
