@@ -1,0 +1,6 @@
+cmake_minimum_required(VERSION 2.8)
+project( filter-opencv )
+find_package( OpenCV REQUIRED )
+add_executable( filter-opencv filter-opencv.cpp )
+set_property(TARGET filter-opencv PROPERTY CXX_STANDARD 11)
+target_link_libraries( filter-opencv ${OpenCV_LIBS} )
