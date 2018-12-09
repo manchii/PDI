@@ -143,6 +143,16 @@ int main(int argc, char* argv[]) {
   }
 
   lti::channel8 res;
+  int rows=img.rows();int cols=img.columns();
+  if(rows%8!=0){
+    img.resize(img.rows()+8-img.rows()%8,img.columns(),0);
+  }
+  if(cols%32!=0){
+    img.resize(img.rows(),img.columns()+32-img.columns()%32,0);
+  }
+
+
+
   res.resize(img.rows(), img.columns(), 0);
 
   lti::viewer2D view("Transformed");
@@ -153,21 +163,37 @@ int main(int argc, char* argv[]) {
   std::chrono::duration<double,std::ratio<1,1000> > elapsed_seconds;
 
 
-  double acc_samp=0;
-  std::cout << " , sep-filter(ms)" << std::endl;
-  //for (int wsize =1; wsize<25; wsize+=2){ //final
-  for (int wsize =5; wsize<7; wsize+=2){//debug
+  std::vector<double> time_samples;
+  time_samples.reserve(100);
 
-    acc_samp=0;
     for(int i=0; i<100; i++){ //final
       start = std::chrono::system_clock::now();
-      max_sep_filter(res,img,wsize);
+      max_sep_filter(res,img,5);
       end = std::chrono::system_clock::now();
       elapsed_seconds = end - start;
-      acc_samp+=elapsed_seconds.count();
+      time_samples.push_back(elapsed_seconds.count());
     }
-    std::cout << " , " << acc_samp/100 << std::endl;
-  }
+    res.resize(rows,cols);
+    img.resize(rows,cols);
+
+    double mean=0;
+    double N = 0;
+    for(std::vector<double>::iterator it = time_samples.begin(); it != time_samples.end(); ++it){
+      mean += *it;
+      N++;
+    }
+    mean=mean/N;
+
+    double var = 0;
+    double elem = 0;
+    for(std::vector<double>::iterator it = time_samples.begin(); it != time_samples.end(); ++it){
+      elem = ((*it)-mean);
+      elem = elem*elem;
+      var += elem;
+    }
+    var = sqrt(var/(N-1));
+std::cout << cols*rows << " , " <<  mean << " , " << var << std::endl;
+
 
   bool showTransformed= true;
   do {

@@ -157,6 +157,7 @@ void One_Dim_Hor_Vectorized(lti::vector<uint8_t> &dst, const lti::vector<uint8_t
         max_container=_mm256_or_si256(max_container,corner_right_max(local_256,se_mid_len));
         column_idx += se_mid_len;
         _mm256_maskstore_epi32(dst_base_image+((column_idx-30)/4),_mm256_set1_epi32(0x80000000),max_container);
+
     }
   }
 }
@@ -282,20 +283,11 @@ void One_Dim_Ver4_Vectorized(lti::vector<uint8_t> &dst, const lti::vector<uint8_
 
 void vectorized_max_filter(lti::channel8 &dst, const lti::channel8 &src,const int32_t height,const int32_t width,const int se_mid_len){
 
-  lti::channel8 aux(height,width);
-
   for(int row = 0; row< height; row++){
-    One_Dim_Hor_Vectorized(aux.getRow(row),src.getRow(row),width,se_mid_len);
+    One_Dim_Hor_Vectorized(dst.getRow(row),src.getRow(row),width,se_mid_len);
   }
-
-  // aux.transpose();
-  // dst.transpose();
-  // for(int row = 0; row< width; row++){
-  //   One_Dim_Hor_Vectorized(dst.getRow(row),aux.getRow(row),height,se_mid_len);
-  // }
-  //dst.transpose();
-   for(int col = 0; col< width; col+=4){
-     One_Dim_Ver4_Vectorized(dst.getRow(0),aux.getRow(0),width,height,col,se_mid_len);
+  for(int col = 0; col< width; col+=4){
+    One_Dim_Ver4_Vectorized(dst.getRow(0),dst.getRow(0),width,height,col,se_mid_len);
   }
 }
 

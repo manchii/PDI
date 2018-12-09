@@ -153,20 +153,36 @@ int main(int argc, char* argv[]) {
   std::chrono::duration<double,std::ratio<1,1000> > elapsed_seconds;
 
 
-  double acc_samp=0;
-  std::cout << " , dokladal(ms)" << std::endl;
-  for (int wsize =1; wsize<25; wsize+=2){
+int rows=img.rows();int cols=img.columns();
 
-    acc_samp=0;
+    std::vector<double> time_samples;
+    time_samples.reserve(100);
+
+
     for(int i=0; i<100; i++){
       start = std::chrono::system_clock::now();
-      dokladal(res,img,wsize);
+      dokladal(res,img,5);
       end = std::chrono::system_clock::now();
       elapsed_seconds = end - start;
-      acc_samp+=elapsed_seconds.count();
+      time_samples.push_back(elapsed_seconds.count());
     }
-    std::cout << " , " << acc_samp/100 << std::endl;
-  }
+    double mean=0;
+    double N = 0;
+    for(std::vector<double>::iterator it = time_samples.begin(); it != time_samples.end(); ++it){
+      mean += *it;
+      N++;
+    }
+    mean=mean/N;
+
+    double var = 0;
+    double elem = 0;
+    for(std::vector<double>::iterator it = time_samples.begin(); it != time_samples.end(); ++it){
+      elem = ((*it)-mean);
+      elem = elem*elem;
+      var += elem;
+    }
+    var = sqrt(var/(N-1));
+    std::cout << cols*rows << " , " <<  mean << " , " << var << std::endl;
 
   bool showTransformed= true;
   do {

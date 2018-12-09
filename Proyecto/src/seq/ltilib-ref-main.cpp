@@ -163,30 +163,71 @@ int main(int argc, char* argv[]) {
 
   lti::maximumFilter<lti::ubyte> mfilt(3);
 
-  double acc_samp=0;
-  std::cout << "wsize , ltilib::maximumFilter(ms) , trivial-max-Filter(ms)" << std::endl;
-  for (int wsize =1; wsize<25; wsize+=2){
-    mfilt.setSquareMaskWindow(wsize);
+
+  int rows=img.rows();int cols=img.columns();
+
+      std::vector<double> time_samples;
+      time_samples.reserve(100);
+
+
+    mfilt.setSquareMaskWindow(5);
     mfilt.updateParameters();
-    acc_samp=0;
+
     for(int i=0; i<100; i++){
       start = std::chrono::system_clock::now();
       mfilt.apply(img,res);
       end = std::chrono::system_clock::now();
       elapsed_seconds = end - start;
-      acc_samp+=elapsed_seconds.count();
+      time_samples.push_back(elapsed_seconds.count());
     }
-    std::cout << wsize << " , " << acc_samp/100;
-    acc_samp=0;
+
+    double mean=0;
+    double N = 0;
+    for(std::vector<double>::iterator it = time_samples.begin(); it != time_samples.end(); ++it){
+      mean += *it;
+      N++;
+    }
+    mean=mean/N;
+
+    double var = 0;
+    double elem = 0;
+    for(std::vector<double>::iterator it = time_samples.begin(); it != time_samples.end(); ++it){
+      elem = ((*it)-mean);
+      elem = elem*elem;
+      var += elem;
+    }
+    var = sqrt(var/(N-1));
+    std::cout << cols*rows << " , " <<  mean << " , " << var << std::endl;
+
+    time_samples.clear();
+    time_samples.reserve(100);
+
     for(int i=0; i<100; i++){
       start = std::chrono::system_clock::now();
-      maxFilterTrivial(res,img,wsize);
+      maxFilterTrivial(res,img,5);
       end = std::chrono::system_clock::now();
       elapsed_seconds = end - start;
-      acc_samp+=elapsed_seconds.count();
+      time_samples.push_back(elapsed_seconds.count());
     }
-    std::cout << " , " << acc_samp/100 << std::endl;
-  }
+    mean=0;
+    N = 0;
+    for(std::vector<double>::iterator it = time_samples.begin(); it != time_samples.end(); ++it){
+      mean += *it;
+      N++;
+    }
+    mean=mean/N;
+
+
+    var = 0;
+    elem = 0;
+    for(std::vector<double>::iterator it = time_samples.begin(); it != time_samples.end(); ++it){
+      elem = ((*it)-mean);
+      elem = elem*elem;
+      var += elem;
+    }
+    var = sqrt(var/(N-1));
+    std::cout << cols*rows << " , " <<  mean << " , " << var << std::endl;
+
 
 
 
