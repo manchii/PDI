@@ -12,3 +12,17 @@ Donde _S(x,y)_ es la imagen fuente y _D(x,y)_ la imagen destino. La regla de la 
 ### Comparación 
 
 ![](https://github.com/manchii/PDI/blob/master/Proyecto/src/tools/execution_time.png)
+
+### Requisitos
+
+* OpenCV
+* ltilib2
+
+### Ejecución
+
+Primero asegurese que los ``Makefile`` de ``src/seq/``, ``src/dokladal/`` y ``src/vectorized/`` estén correctamente con el link a la biblioteca de ltilib2 instalada. Si es afirmativo, puede ejecutar el test de regresión con
+
+```bash
+cd src/tools/
+./regression_run.sh
+```
